@@ -1,0 +1,7 @@
+{
+  "name": "cp-clipboard",
+  "private": true,
+  "dependencies": {
+    "polymer": "Polymer/polymer"
+  }
+}

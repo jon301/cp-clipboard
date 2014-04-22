@@ -1,0 +1,96 @@
+<link rel="import" href="../polymer/polymer.html">
+<script src="../zeroclipboard/ZeroClipboard.min.js"></script>
+
+<!--
+Element providing a wrapper around the ZeroClipboard library
+
+##### Example
+
+    <cp-clipboard></cp-clipboard>
+
+@element cp-clipboard
+@blurb Element providing a wrapper around the ZeroClipboard library
+@status alpha
+@url http://github.com/jon301/cp-clipboard
+-->
+<polymer-element name="cp-clipboard" attributes="value">
+
+  <template>
+
+    <link href="cp-clipboard.css" rel="stylesheet" />
+
+    <div id="el" data-clipboard-text="{{ value }}">
+      <content></content>
+    </div>
+
+  </template>
+
+  <script>
+
+    Polymer({
+      /**
+       * Fired when the value is copied to the clipboard
+       *
+       * @event copy-complete
+       */
+
+      /**
+       * Fired on mouse over / mouse out / mouse down / mouse up
+       *
+       * @event state-changed
+       */
+
+      /**
+       * Fired when the value to copy is changed
+       *
+       * @event value-changed
+       */
+
+      /**
+       * The `value` attribute specifies the text to copy to the clipboard
+       *
+       * @attribute value
+       * @type string
+       */
+      value: '',
+
+      ready: function() {
+        var self = this;
+
+        ZeroClipboard.config({
+          moviePath: "../zeroclipboard/ZeroClipboard.swf"
+        });
+
+        this.client = new ZeroClipboard(this.$.el);
+
+        this.client.on('complete', function(client, args) {
+          self.fire('copy-complete', { value: args.text })
+        });
+      },
+
+      valueChanged: function() {
+        this.client.setText(this.value);
+        this.fire('value-changed', { value: this.value });
+      },
+
+      stateChanged: function(oldValue, newValue) {
+        var classNames = [];
+        if (newValue.indexOf('hover') !== -1) {
+          classNames.push('hover');
+        }
+        if (newValue.indexOf('active') !== -1) {
+          classNames.push('active');
+        }
+        this.className = classNames.join(' ');
+        this.fire('state-changed', { state: this.className });
+      },
+
+      // Custom property observer
+      observe: {
+        '$.el.className': 'stateChanged'
+      }
+    });
+
+  </script>
+
+</polymer-element>
