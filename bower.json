@@ -2,6 +2,7 @@
   "name": "cp-clipboard",
   "private": true,
   "dependencies": {
-    "polymer": "Polymer/polymer"
+    "polymer": "Polymer/polymer",
+    "zeroclipboard": "~1.3.5"
   }
 }
