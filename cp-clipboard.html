@@ -6,7 +6,9 @@ Element providing a wrapper around the ZeroClipboard library
 
 ##### Example
 
-    <cp-clipboard></cp-clipboard>
+    <cp-clipboard value="Value to copy">
+      <button>Click here to copy</button>
+    </cp-clipboard>
 
 @element cp-clipboard
 @blurb Element providing a wrapper around the ZeroClipboard library
@@ -26,7 +28,6 @@ Element providing a wrapper around the ZeroClipboard library
   </template>
 
   <script>
-
     Polymer({
       /**
        * Fired when the value is copied to the clipboard
@@ -55,12 +56,16 @@ Element providing a wrapper around the ZeroClipboard library
       value: '',
 
       ready: function() {
-        var self = this;
-
         ZeroClipboard.config({
-          moviePath: "../zeroclipboard/ZeroClipboard.swf"
+          moviePath: '../zeroclipboard/ZeroClipboard.swf',
+          forceHandCursor: true,
+          hoverClass: 'hover',
+          activeClass: 'active'
         });
+      },
 
+      domReady: function() {
+        var self = this;
         this.client = new ZeroClipboard(this.$.el);
 
         this.client.on('complete', function(client, args) {
@@ -68,20 +73,13 @@ Element providing a wrapper around the ZeroClipboard library
         });
       },
 
-      valueChanged: function() {
+      valueChanged: function() {
         this.client.setText(this.value);
         this.fire('value-changed', { value: this.value });
       },
 
       stateChanged: function(oldValue, newValue) {
-        var classNames = [];
-        if (newValue.indexOf('hover') !== -1) {
-          classNames.push('hover');
-        }
-        if (newValue.indexOf('active') !== -1) {
-          classNames.push('active');
-        }
-        this.className = classNames.join(' ');
+        this.className = newValue;
         this.fire('state-changed', { state: this.className });
       },
 
