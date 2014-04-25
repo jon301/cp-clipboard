@@ -1,0 +1,31 @@
+{
+  "name": "cp-clipboard",
+  "authors": [
+    {
+      "name": "Jonathan Trang",
+      "email": "jon301@gmail.com"
+    }
+  ],
+  "homepage": "https://github.com/jon301/cp-clipboard",
+  "description": "A Polymer element for ZeroClipboard.js",
+  "keywords": [
+    "Polymer",
+    "web-components",
+    "zeroclipboard"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "polymer": "Polymer/polymer",
+    "zeroclipboard": "~1.3.5"
+  },
+  "_release": "a4fcd69139",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "a4fcd6913972dd4cc6af040d6f9aee5e6b6fd9e3"
+  },
+  "_source": "git://github.com/jon301/cp-clipboard.git",
+  "_target": "master",
+  "_originalSource": "jon301/cp-clipboard",
+  "_direct": true
+}
